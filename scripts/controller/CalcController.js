@@ -73,6 +73,14 @@ class CalcController {
         
         break;
 
+      case 'soma':
+
+        break;
+
+      case 'ponto':
+
+        break;
+
       case 'o':
       case '1':
       case '2':
