@@ -2,6 +2,7 @@ class CalcController {
 
   constructor(){
 
+    this._operation = [];
     this._locale = "pt-BR";
     this._displayCalcEL = document.querySelector("#display");
     this._dateEL = document.querySelector("#data");
@@ -21,6 +22,75 @@ class CalcController {
     }, 1000);
 
   }
+  
+  clearAll(){
+    this._operation = []; 
+  };
+
+  clearEntry(){
+    this._operation.pop();
+  };
+
+  addOperation(value){
+    this._operation.push(value);
+
+    console.log(addOperation)
+  };
+
+  setError(){
+    this.displayCalc = "Error";
+  };
+
+  execBtn(value){
+
+    switch (value) {
+
+      case 'ac':
+        this.clearAll();
+        break;
+
+      case 'ce':
+        this.clearEntry(); 
+        break;
+
+      case 'subtracao':
+        
+        break;
+
+      case 'divisao':
+        
+        break;
+
+      case 'multiplicacao':
+        
+        break;
+
+      case 'porcento':
+        
+        break;
+
+      case 'igual':
+        
+        break;
+
+      case 'o':
+      case '1':
+      case '2':
+      case '3':
+      case '4':
+      case '5':
+      case '6':
+      case '7':
+      case '8':
+      case '9':
+        this.addOperation(parseInt(value));
+        break;
+
+      default:
+        this.setError();
+
+    };
+  };
 
   addEventListenerAll(element, events, fn){
     
