@@ -31,10 +31,46 @@ class CalcController {
     this._operation.pop();
   };
 
-  addOperation(value){
-    this._operation.push(value);
+  getLastOperation(){
+    return this._operation[this._operation.length-1 ];
+  };
 
-    console.log(addOperation)
+  setLastOperation(value){
+    this._operation[this._operation.length-1 ] = value;
+  }
+
+  isOperator(value){
+    return (['+', '-', '*', '%', '/'].indexOf(value) > -1);
+  }
+
+  addOperation(value){
+
+    console.log('NaN', isNaN(this.getLastOperation()));
+    
+    if (isNaN(this.getLastOperation())) {
+
+        if (this.isOperator(value)) {
+
+          this.setLastOperation(value);
+
+        } else if(isNaN(value)) {
+
+          console.log(value);
+
+        } else {
+
+          this._operation.push(value);
+        }
+
+    } else {
+
+      let newValue = this.getLastOperation().toString() + value.toString();
+      this.setLastOperation(parseInt(newValue));
+
+    }
+
+    console.log(this._operation);
+
   };
 
   setError(){
@@ -42,7 +78,7 @@ class CalcController {
   };
 
   execBtn(value){
-
+    
     switch (value) {
 
       case 'ac':
@@ -54,19 +90,19 @@ class CalcController {
         break;
 
       case 'subtracao':
-        
+        this.addOperation('-'); 
         break;
 
       case 'divisao':
-        
+        this.addOperation('/'); 
         break;
 
       case 'multiplicacao':
-        
+        this.addOperation('*'); 
         break;
 
       case 'porcento':
-        
+        this.addOperation('%'); 
         break;
 
       case 'igual':
@@ -74,14 +110,14 @@ class CalcController {
         break;
 
       case 'soma':
-
+        this.addOperation('+');
         break;
 
       case 'ponto':
-
+        this.addOperation('.');
         break;
 
-      case 'o':
+      case '0':
       case '1':
       case '2':
       case '3':
@@ -115,7 +151,10 @@ class CalcController {
 
     buttons.forEach((btn,index)=>{
        this.addEventListenerAll(btn, "click drag", e => {
-        console.log(btn.className.baseVal.replace("btn-","")); 
+
+        let texBtn = btn.className.baseVal.replace("btn-",""); 
+        this.execBtn(texBtn);
+
        });
 
        this.addEventListenerAll(btn, "mouseover mouseup mousedown", e=>{
